@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+
+    .landing-container {
+      background-image: url('/img/fondo.png');
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px;
+    }
+
+    .landing-card {
+      background-image: url('/img/tarje.png');
+      background: rgba(255, 255, 255, 0.103);
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    h1.landing-title { margin-bottom: 20px; text-align: center; color: #333; }
+    .landing-actions { text-align: center; margin-bottom: 30px; }
+    .btn { padding: 10px 20px; border: none; border-radius: 8px; text-decoration: none; color: white; background: #0077b6; }
+    .btn:hover { background: #023e8a; }
+    .search-block label { display: block; margin-top: 10px; }
+    .search-block input { width: 100%; padding: 5px; margin-top: 5px; }
+    .population-range { margin-top: 15px; }
+    .range-inputs input { width: 45%; margin-right: 5%; }
+  </style>
+</head>
+<body>
+  <div class="landing-container">
+    <div class="landing-card">
+      <h1 class="landing-title">Bienvenido a la App de Paises de Lenguaje Español</h1>
+      <div class="landing-actions">
+        <a href="/dashboard" class="btn">Ir al Dashboard</a>
+      </div>
+      <div class="search-block">
+        <h2>Buscar por:</h2>
+        <form method="GET" action="/paises/buscar">
+          <label for="name">Nombre oficial:</label>
+          <input type="text" id="name" name="name" placeholder="Ej: Argentina">
+
+          <label for="capital">Capital:</label>
+          <input type="text" id="capital" name="capital" placeholder="Ej: París">
+
+          <label for="borders">Borde/limítrofe:</label>
+          <input type="text" id="borders" name="borders" placeholder="Ej: BRA">
+
+          <label for="region">Región:</label>
+          <input type="text" id="region" name="region" placeholder="Ej: Europe">
+
+          <div class="population-range">
+            <p>Rango de población</p>
+            <div class="range-inputs">
+              <input type="number" name="min" placeholder="Min">
+              <input type="number" name="max" placeholder="Max">
+            </div>
+          </div>
+
+          <button type="submit" class="btn">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Asegura que la página siempre cargue al inicio
+    window.scrollTo(0,0);
+  </script>
+</body>
+</html>

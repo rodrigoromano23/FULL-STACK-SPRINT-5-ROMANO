@@ -1,0 +1,32 @@
+
+
+<div class="form-container">
+  <h1>Agregar País</h1>
+
+  <form action="/paises/agregar" method="POST">
+    <label>Nombre Oficial:
+      <input type="text" name="nameOfficial" required>
+    </label>
+    <label>Capital:
+      <input type="text" name="capital" required>
+    </label>
+    <label>Borders (separados por coma):
+      <input type="text" name="borders">
+    </label>
+    <label>Area:
+      <input type="number" name="area" required>
+    </label>
+    <label>Population:
+      <input type="number" name="population" required>
+    </label>
+    <label>Gini:
+      <input type="number" step="0.01" name="gini">
+    </label>
+    <label>Timezone (separados por coma):
+      <input type="text" name="timezone">
+    </label>
+    <button type="submit" class="btn">Agregar</button>
+  </form>
+</div>
+
+

@@ -1,0 +1,580 @@
+/* Navbar */
+nav {
+  background-color: rgba(12, 11, 11, 0.95); /* gris transparente */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,165,0,0.3);
+  backdrop-filter: blur(5px);
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end; /* links a la derecha */
+  align-items: center;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+nav ul li:first-child {
+  margin-right: auto; /* "Inicio" a la izquierda */
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  border-color: rgba(255, 166, 0, 0.94); /* borde naranja difuso */
+  color: white;
+  background-color: rgba(0, 0, 0, 0.95); /* sutil fondo */
+}
+
+/* Footer */
+footer {
+  background-color: rgba(0, 0, 0, 0.94);
+  display: flex;
+  justify-content: center; /* centro horizontal */
+  align-items: center;
+  padding: 15px 20px;
+  gap: 30px;
+  flex-wrap: wrap;
+  color: white;
+  border-top: 1px solid rgba(255,165,0,0.3);
+  backdrop-filter: blur(5px);
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  border-color: rgba(255,165,0,0.6);
+  color: white;
+  background-color: rgba(255,165,0,0.1);
+}
+
+/*--- el landing---------------*/
+
+/* Contenedor principal */
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Tarjeta más pequeña */
+.landing-card {
+  max-width: 500px;       /* ancho máximo de la tarjeta */
+  width: 50%;            /* ocupa todo el contenedor pero limitada por max-width */
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(20, 212, 20, 0.9);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Imagen dentro de la tarjeta */
+.landing-card img {
+  max-width: 90%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+/* Título */
+h1.landing-title {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+/* Botones principales */
+.landing-actions {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 8px 16px; /* más pequeño */
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  background: #0077b6;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #023e8a;
+}
+
+/* Formulario */
+.search-block {
+  width: 50%;
+}
+
+.search-block h2 {
+  text-align: center;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.search-block form {
+  display: flex;
+  flex-direction: column;
+  gap: 1px; /* menos espacio entre inputs */
+}
+
+/* Labels y inputs */
+.search-block label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.search-block input[type="text"],
+.search-block input[type="number"] {
+  padding: 8px; /* más compacto */
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.search-block input[type="text"]:focus,
+.search-block input[type="number"]:focus {
+  border-color: #0077b6;
+  box-shadow: 0 0 8px rgba(0,119,182,0.4);
+}
+
+/* Inputs seleccionables */
+.search-block input[type="text"].selected,
+.search-block input[type="number"].selected {
+  border-color: #0077b6;
+  box-shadow: 0 0 8px rgba(0,119,182,0.5);
+}
+
+/* Rango de población: inputs lado a lado con menos espacio */
+.population-range {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.range-inputs {
+  display: flex;
+  gap: 5px; /* menos espacio horizontal */
+}
+
+.range-inputs input {
+  flex: 1;
+  padding: 1px;
+  font-size: 0.9rem;
+}
+
+/* Responsivo */
+@media (max-width: 500px) {
+  .range-inputs {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/*agregar pais----------------------------------*/
+
+/* Contenedor principal centrado */
+body {
+  background-image: url('/img/fondo.png');
+}
+.form-container {
+  max-width: 400px;            /* ancho compacto */
+  margin: 50px auto;           /* centrado vertical y horizontal */
+  padding: 25px 30px;
+  background: rgba(255, 255, 255, 0.95); /* blanco semi-transparente */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Título */
+.form-container h1 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+/* Formulario */
+.form-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* espacio entre cada label/input */
+}
+
+/* Labels e Inputs */
+.form-container label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"] {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.2);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Efecto al enfocar el input */
+.form-container input[type="text"]:focus,
+.form-container input[type="number"]:focus {
+  border-color: #0077b6;
+  box-shadow: 0 0 10px rgba(0, 119, 182, 0.3);
+}
+
+/* Botón */
+.form-container .btn {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  background-color: #0077b6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-container .btn:hover {
+  background-color: #023e8a;
+}
+
+/* Responsivo */
+@media (max-width: 500px) {
+  .form-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .form-container input[type="text"],
+  .form-container input[type="number"] {
+    width: 100%;
+  }
+}
+
+/* ----vista acercade----------------------------------*/
+
+/* Contenedor general */
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+  background: linear-gradient(120deg, #e0f7fa, #ffffff);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Tarjetas */
+.about-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  padding: 20px;
+  flex: 1 1 220px; /* flexible y responsivo */
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Imágenes de las tarjetas */
+.about-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+/* Titulos dentro de la tarjeta */
+.about-card h2 {
+  font-size: 1.2rem;
+  color: #0077b6;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Texto de la tarjeta */
+.about-card p, .about-card ul {
+  font-size: 0.95rem;
+  color: #333;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.about-card ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.about-card ul li {
+  margin: 4px 0;
+}
+
+/* Tarjeta del gráfico */
+.chart-card {
+  flex: 1 1 600px; /* más ancho para el gráfico */
+  max-width: 600px;
+}
+
+/* Título principal de la página */
+.about-container h1 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #0077b6;
+}
+
+/* Responsive: en pantallas muy pequeñas las tarjetas se apilan */
+@media (max-width: 1000px) {
+  .chart-card {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+
+/*----paginacion-----------------*/
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.page-link {
+  padding: 6px 12px;
+  border: 1px solid #0077b6;
+  border-radius: 6px;
+  color: #0077b6;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.page-link:hover {
+  background: #0077b6;
+  color: white;
+}
+
+.page-link.active {
+  background: #0077b6;
+  color: white;
+}
+
+
+/*-----Normalizador de GINI------------------------------------*/
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  background: #f5f5f5;
+}
+
+.about-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 20px;
+  max-width: 400px;
+  flex: 1 1 300px;
+  text-align: center;
+}
+
+.about-card img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.about-card h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #0077b6;
+}
+
+.about-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-card ul li {
+  margin: 5px 0;
+}
+
+.chart-card {
+  max-width: 800px;
+}
+
+/*------------------vista acerca de----------------------------
+/* Contenedor principal */
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+body{
+  background-color: rgba(0, 0, 0, 0.219);
+}
+
+/* Título principal */
+.about-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+/* Contenedor de columnas */
+.about-main {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Columna izquierda y derecha */
+.about-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Tarjetas generales */
+.about-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Tarjeta del gráfico */
+.chart-card {
+  flex: 1;
+}
+
+/* Contenedor de dos tarjetas en fila */
+.about-row {
+  display: flex;
+  gap: 20px;
+}
+
+.about-row .about-card {
+  flex: 1;
+  text-align: center;
+}
+
+/* Botón de exportar */
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #36a2eb;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background-color: #1e81c2;
+}
+
+/* Títulos de tarjetas */
+.about-card h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #36a2eb;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Imágenes */
+.about-card img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+/* Listas */
+.about-card ul {
+  padding-left: 20px;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .about-main {
+    flex-direction: column;
+  }
+
+  .about-row {
+    flex-direction: column;
+  }
+}

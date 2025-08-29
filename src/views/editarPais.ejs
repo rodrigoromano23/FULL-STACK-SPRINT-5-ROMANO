@@ -1,0 +1,31 @@
+
+
+<h1>Editar País</h1>
+
+<form action="/paises/editar/<%= pais._id %>" method="POST">
+  <label>Nombre Oficial:
+    <input type="text" name="nameOfficial" value="<%= pais.nameOfficial %>" required>
+  </label>
+  <label>Capital:
+    <input type="text" name="capital" value="<%= pais.capital %>" required>
+  </label>
+  <label>Borders (separados por coma):
+    <input type="text" name="borders" value="<%= pais.borders?.join(', ') %>">
+  </label>
+  <label>Area:
+    <input type="number" name="area" value="<%= pais.area %>" required>
+  </label>
+  <label>Population:
+    <input type="number" name="population" value="<%= pais.population %>" required>
+  </label>
+  <label>Gini:
+    <input type="number" step="0.01" name="gini" value="<%= pais.gini %>">
+  </label>
+  <label>Timezone:
+    <input type="text" name="timezone" value="<%= pais.timezone %>">
+  </label>
+  <label>Creador:
+    <input type="text" name="creador" value="<%= pais.creador %>">
+  </label>
+  <button type="submit">Guardar Cambios</button>
+</form>

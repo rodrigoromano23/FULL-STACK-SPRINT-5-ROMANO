@@ -1,0 +1,106 @@
+<div class="about-container">
+  <!-- Contenedor principal: izquierda y derecha -->
+  <div class="about-main">
+
+    <!-- Columna izquierda -->
+    <div class="about-left">
+      <div class="about-card chart-card">
+        <h2>Índice de Gini de Países Hispanoamericanos 2025</h2>
+        <canvas id="giniChart"></canvas>
+      </div>
+
+      <div class="about-row">
+        <div class="about-card promedio-card">
+          <h2>Promedio del Índice de Gini</h2>
+          <p id="promedioGini">Calculando...</p>
+        </div>
+
+        <div class="about-card export-card">
+          <h2>Exportar listado filtrado</h2>
+          <a id="btnExportCSV" class="btn" href="/exportar-csv">Exportar CSV</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="about-right">
+      <div class="about-card">
+        <img src="/img/objetivo.png" alt="Globo terráqueo">
+        <h2>Objetivo</h2>
+        <p>Esta aplicación permite explorar información de países, agregar nuevos registros y consultar datos de manera sencilla y visual.</p>
+      </div>
+
+      <div class="about-card">
+        <h2>Tecnologías</h2>
+        <ul>
+          <li>Node.js</li>
+          <li>Express</li>
+          <li>EJS</li>
+          <li>MongoDB</li>
+          <li>CSS moderno y responsivo</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h2>Autor</h2>
+        <p>FERREIRA ROMANO RODRIGO SALOMON</p>
+        <p>Contacto: rr69978@gmail.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts de gráfico y promedio -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const labels = <%- JSON.stringify(labels || []) %>;
+  const giniData = <%- JSON.stringify(giniData || []) %>;
+  const populationData = <%- JSON.stringify(populationData || []) %>;
+
+  // Gráfico
+  const ctx = document.getElementById('giniChart').getContext('2d');
+  if (labels.length && giniData.length === labels.length && populationData.length === labels.length) {
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Índice de Gini',
+          data: giniData.map(Number),
+          backgroundColor: 'rgba(54, 162, 235, 0.7)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const idx = context.dataIndex;
+                const pop = populationData[idx] || 0;
+                return `Gini: ${context.raw}, Población: ${pop.toLocaleString()}`;
+              }
+            }
+          },
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'Gini' } },
+          x: { title: { display: true, text: 'Países' }, ticks: { autoSkip: false, maxRotation: 90, minRotation: 45 } }
+        }
+      }
+    });
+  }
+
+  // Promedio
+  const giniValidos = giniData.filter(v => v != null);
+  const promedio = giniValidos.length 
+    ? (giniValidos.reduce((acc, v) => acc + Number(v), 0) / giniValidos.length)
+    : 0;
+  document.getElementById('promedioGini').textContent = promedio.toFixed(2);
+});
+</script>
