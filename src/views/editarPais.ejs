@@ -1,6 +1,6 @@
 
 
-<h1>Editar País</h1>
+<!--<h1>Editar País</h1>
 
 <form action="/paises/editar/<%= pais._id %>" method="POST">
   <label>Nombre Oficial:
@@ -28,4 +28,119 @@
     <input type="text" name="creador" value="<%= pais.creador %>">
   </label>
   <button type="submit">Guardar Cambios</button>
+</form>-->
+
+<h1>Editar País</h1>
+
+<form action="/paises/editar/<%= pais._id %>" method="POST">
+  <!-- Nombre Oficial -->
+  <label>Nombre Oficial:
+    <input 
+      type="text" 
+      name="nameOfficial" 
+      value="<%= datos?.nameOfficial || pais.nameOfficial %>" 
+      required
+      class="<%= errores?.nameOfficial ? 'error' : '' %>"
+    >
+  </label>
+  <% if (errores?.nameOfficial) { %>
+    <p class="error-msg"><%= errores.nameOfficial %></p>
+  <% } %>
+
+  <!-- Capital -->
+  <label>Capital:
+    <input 
+      type="text" 
+      name="capital" 
+      value="<%= datos?.capital || pais.capital %>" 
+      required
+      class="<%= errores?.capital ? 'error' : '' %>"
+    >
+  </label>
+  <% if (errores?.capital) { %>
+    <p class="error-msg"><%= errores.capital %></p>
+  <% } %>
+
+  <!-- Borders -->
+  <label>Borders (separados por coma):
+    <input 
+      type="text" 
+      name="borders" 
+      value="<%= datos?.borders || pais.borders?.join(', ') %>"
+      class="<%= errores?.borders ? 'error' : '' %>"
+    >
+  </label>
+  <% if (errores?.borders) { %>
+    <p class="error-msg"><%= errores.borders %></p>
+  <% } %>
+
+  <!-- Area -->
+  <label>Area:
+    <input 
+      type="number" 
+      name="area" 
+      value="<%= datos?.area || pais.area %>" 
+      required
+      class="<%= errores?.area ? 'error' : '' %>"
+    >
+  </label>
+  <% if (errores?.area) { %>
+    <p class="error-msg"><%= errores.area %></p>
+  <% } %>
+
+  <!-- Population -->
+  <label>Population:
+    <input 
+      type="number" 
+      name="population" 
+      value="<%= datos?.population || pais.population %>" 
+      required
+      class="<%= errores?.population ? 'error' : '' %>"
+    >
+  </label>
+  <% if (errores?.population) { %>
+    <p class="error-msg"><%= errores.population %></p>
+  <% } %>
+
+  <!-- Gini -->
+  <label>Gini:
+    <input 
+      type="number" 
+      step="0.01" 
+      name="gini" 
+      value="<%= datos?.gini || pais.gini %>"
+      class="<%= errores?.gini ? 'error' : '' %>"
+    >
+  </label>
+  <% if (errores?.gini) { %>
+    <p class="error-msg"><%= errores.gini %></p>
+  <% } %>
+
+  <!-- Timezone -->
+  <label>Timezone:
+    <input 
+      type="text" 
+      name="timezone" 
+      value="<%= datos?.timezone || pais.timezones?.join(', ') %>"
+      class="<%= errores?.timezones ? 'error' : '' %>"
+    >
+  </label>
+  <% if (errores?.timezones) { %>
+    <p class="error-msg"><%= errores.timezones %></p>
+  <% } %>
+
+  <button type="submit">Guardar Cambios</button>
 </form>
+
+<style>
+  .error {
+    border: 1px solid red;
+    background-color: #ffe6e6;
+  }
+  .error-msg {
+    color: red;
+    font-size: 0.9em;
+    margin: 2px 0 10px 0;
+  }
+</style>
+

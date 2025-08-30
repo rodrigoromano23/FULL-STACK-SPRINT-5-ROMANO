@@ -1,6 +1,6 @@
 
 
-<div class="form-container">
+<!--<div class="form-container">
   <h1>Agregar País</h1>
 
   <form action="/paises/agregar" method="POST">
@@ -27,6 +27,122 @@
     </label>
     <button type="submit" class="btn">Agregar</button>
   </form>
+</div>-->
+
+<div class="form-container">
+  <h1>Agregar País</h1>
+
+  <form action="/paises/agregar" method="POST">
+    <!-- Nombre Oficial -->
+    <label>Nombre Oficial:
+      <input 
+        type="text" 
+        name="nameOfficial" 
+        required
+        value="<%= datos?.nameOfficial || '' %>"
+        class="<%= errores?.nameOfficial ? 'error' : '' %>"
+      >
+    </label>
+    <% if (errores?.nameOfficial) { %>
+      <p class="error-msg"><%= errores.nameOfficial %></p>
+    <% } %>
+
+    <!-- Capital -->
+    <label>Capital:
+      <input 
+        type="text" 
+        name="capital" 
+        required
+        value="<%= datos?.capital || '' %>"
+        class="<%= errores?.capital ? 'error' : '' %>"
+      >
+    </label>
+    <% if (errores?.capital) { %>
+      <p class="error-msg"><%= errores.capital %></p>
+    <% } %>
+
+    <!-- Borders -->
+    <label>Borders (separados por coma):
+      <input 
+        type="text" 
+        name="borders" 
+        value="<%= datos?.borders || '' %>"
+        class="<%= errores?.borders ? 'error' : '' %>"
+      >
+    </label>
+    <% if (errores?.borders) { %>
+      <p class="error-msg"><%= errores.borders %></p>
+    <% } %>
+
+    <!-- Area -->
+    <label>Area:
+      <input 
+        type="number" 
+        name="area" 
+        required
+        value="<%= datos?.area || '' %>"
+        class="<%= errores?.area ? 'error' : '' %>"
+      >
+    </label>
+    <% if (errores?.area) { %>
+      <p class="error-msg"><%= errores.area %></p>
+    <% } %>
+
+    <!-- Population -->
+    <label>Population:
+      <input 
+        type="number" 
+        name="population" 
+        required
+        value="<%= datos?.population || '' %>"
+        class="<%= errores?.population ? 'error' : '' %>"
+      >
+    </label>
+    <% if (errores?.population) { %>
+      <p class="error-msg"><%= errores.population %></p>
+    <% } %>
+
+    <!-- Gini -->
+    <label>Gini:
+      <input 
+        type="number" 
+        step="0.01" 
+        name="gini"
+        value="<%= datos?.gini || '' %>"
+        class="<%= errores?.gini ? 'error' : '' %>"
+      >
+    </label>
+    <% if (errores?.gini) { %>
+      <p class="error-msg"><%= errores.gini %></p>
+    <% } %>
+
+    <!-- Timezone -->
+    <label>Timezone (separados por coma):
+      <input 
+        type="text" 
+        name="timezone" 
+        value="<%= datos?.timezone || '' %>"
+        class="<%= errores?.timezones ? 'error' : '' %>"
+      >
+    </label>
+    <% if (errores?.timezones) { %>
+      <p class="error-msg"><%= errores.timezones %></p>
+    <% } %>
+
+    <button type="submit" class="btn">Agregar</button>
+  </form>
 </div>
+
+<style>
+  .error {
+    border: 1px solid red;
+    background-color: #ffe6e6;
+  }
+  .error-msg {
+    color: red;
+    font-size: 0.9em;
+    margin: 2px 0 10px 0;
+  }
+</style>
 
 

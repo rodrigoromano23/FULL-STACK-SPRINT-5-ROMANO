@@ -138,70 +138,83 @@ export const dashboardController = async (req, res, next) => {
 
 
 // POST /dashboard/agregar
+
+
+// POST /dashboard/agregar
 export const agregarPaisController = async (req, res, next) => {
   try {
     const { nameOfficial, capital, borders, area, population, gini, timezone } = req.body;
 
-    if (!nameOfficial || !capital) {
-      return res.status(400).send("Nombre oficial y capital son obligatorios");
-    }
-
     const nuevoPais = new Pais({
       nameOfficial,
-      capital,
+      capital: capital ? capital.split(",").map(c => c.trim()) : [],
       borders: borders ? borders.split(",").map(b => b.trim()) : [],
       area: Number(area) || 0,
       population: Number(population) || 0,
-      gini: Number(gini) || null,
+      gini: gini === "" ? null : Number(gini),
       timezones: timezone ? timezone.split(",").map(t => t.trim()) : [],
       creador: CREADOR
     });
 
     await nuevoPais.save();
 
-    // Redirigir al dashboard con la lista actualizada
     res.redirect("/paises/dashboard");
   } catch (err) {
+    if (err.name === "ValidationError") {
+      // Recolecto errores amigables
+      const errores = {};
+      for (const campo in err.errors) {
+        errores[campo] = err.errors[campo].message;
+      }
+
+      return res.render("agregarPais", { 
+        title: "Agregar País",
+        errores,
+        datos: req.body   // 👈 conserva lo escrito
+      });
+    }
     next(err);
   }
 };
 
 
-// POST /dashboard/editar/:id
-
-// POST /paises/editar/:id  -> Actualiza en Mongo y redirige al dashboard
+// POST /paises/editar/:id
 export const editarPaisController = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { nameOfficial, capital, borders, area, population, gini, timezones } = req.body;
 
-    // Tomo los campos del form
-    const {
-      nameOfficial,
-      capital,
-      borders,
-      area,
-      population,
-      gini,
-      timezones
-    } = req.body;
-
-    // Normalizo tipos y arrays
     const update = {
       nameOfficial: nameOfficial?.trim(),
-      capital: capital?.trim(),
+      capital: capital ? capital.split(",").map(c => c.trim()) : [],
       borders: borders ? borders.split(",").map(s => s.trim()).filter(Boolean) : [],
       area: Number(area) || 0,
       population: Number(population) || 0,
       gini: gini === "" ? null : Number(gini),
       timezones: timezones ? timezones.split(",").map(s => s.trim()).filter(Boolean) : ["Sin timezone"],
-      creador: CREADOR // me aseguro de que siga siendo de ROMANO
+      creador: CREADOR
     };
 
-    // Actualizo SOLO si es mío
-    await Pais.findOneAndUpdate({ _id: id, creador: CREADOR }, update, { new: true });
+    await Pais.findOneAndUpdate(
+      { _id: id, creador: CREADOR },
+      update,
+      { new: true, runValidators: true } // 👈 IMPORTANTE: aplica validaciones
+    );
 
-    res.redirect("/dashboard"); // o "/paises/dashboard" según tu ruta real
+    res.redirect("/dashboard");
   } catch (err) {
+    if (err.name === "ValidationError") {
+      const errores = {};
+      for (const campo in err.errors) {
+        errores[campo] = err.errors[campo].message;
+      }
+
+      return res.render("editarPais", { 
+        title: "Editar País",
+        errores,
+        pais: { ...req.body, _id: req.params.id } // 👈 conserva valores previos
+      });
+    }
     next(err);
   }
 };
@@ -265,9 +278,14 @@ export const mostrarLandingController = (req, res) => {
 
 //-------------funsion render-----------------------
 //-------------------------------------------------
+
 export const renderAgregarPaisController = (req, res, next) => {
   try {
-    res.render('agregarPais', { title: 'Agregar País' });
+    res.render('agregarPais', { 
+      title: 'Agregar País', 
+      datos: {},        
+      errores: {}       
+    });
   } catch (err) {
     next(err);
   }
@@ -275,7 +293,7 @@ export const renderAgregarPaisController = (req, res, next) => {
 //------------------------------------------------------------------------
 //renderpaiseditar----------------------------------------------------
 // GET /paises/editar/:id  -> Renderiza el formulario con los datos actuales
-export const renderEditarPaisController = async (req, res, next) => {
+/*export const renderEditarPaisController = async (req, res, next) => {
   try {
     const { id } = req.params;
     // Busco SOLO mis países (creador: ROMANO)
@@ -286,7 +304,27 @@ export const renderEditarPaisController = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};*/
+export const renderEditarPaisController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    // Busco SOLO mis países (creador: ROMANO)
+    const pais = await Pais.findOne({ _id: id, creador: CREADOR }).lean();
+    if (!pais) return res.status(404).send("País no encontrado");
+
+    // Si se pasó por errores, pasarlos; si no, vacíos
+    res.render("editarPais", { 
+      title: "Editar País", 
+      pais, 
+      datos: {}, 
+      errores: {} 
+    });
+  } catch (err) {
+    next(err);
+  }
 };
+
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 //gini---------------------------------------------------------
